@@ -1,0 +1,24 @@
+steps:
+- id: 'Build frontend'
+  name: gcr.io/k8s-skaffold/pack
+  entrypoint: pack
+  args: ['build', $IMAGE_FRONTEND,
+         '--path', 'frontend',
+         '--builder', 'gcr.io/buildpacks/builder',
+         '--network', 'cloudbuild']
+  
+- id: 'Build API'
+  name: gcr.io/k8s-skaffold/pack
+  entrypoint: pack
+  args: ['build', $IMAGE_API,
+         '--path', 'product-api',
+         '--builder', 'gcr.io/buildpacks/builder',
+         '--network', 'cloudbuild']
+  waitFor: ['-']   
+  
+serviceAccount: cloud-run-book@${PROJECT_ID}.iam.gserviceaccount.com
+substitutions:
+  IMAGE_FRONTEND: us-central1-docker.pkg.dev/${PROJECT_ID}/my-cloud-run-book/product-frontend
+  IMAGE_API: us-central1-docker.pkg.dev/${PROJECT_ID}/my-cloud-run-book/product-api
+options:
+    dynamicSubstitutions: true
