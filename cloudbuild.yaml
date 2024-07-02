@@ -21,4 +21,5 @@ substitutions:
   _IMAGE_FRONTEND: us-central1-docker.pkg.dev/${PROJECT_ID}/my-cloud-run-book/product-frontend
   _IMAGE_API: us-central1-docker.pkg.dev/${PROJECT_ID}/my-cloud-run-book/product-api
 options:
-    dynamicSubstitutions: true
+  dynamicSubstitutions: true
+  logging: CLOUD_LOGGING_ONLY
