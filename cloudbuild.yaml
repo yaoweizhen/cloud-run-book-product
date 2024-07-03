@@ -23,5 +23,5 @@ options:
   dynamicSubstitutions: true
   logging: CLOUD_LOGGING_ONLY
 
-Images: [_IMAGE_FRONTEND, _IMAGE_API]
+images: [$_IMAGE_FRONTEND, $_IMAGE_API]
 
