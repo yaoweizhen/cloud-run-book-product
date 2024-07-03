@@ -5,16 +5,16 @@ resource "google_service_account" "sa-build-cloud-run-book" {
 }
 
 # service account bindings
-resource "google_project_iam_member" "artifiactregistry-admin" {
+resource "google_project_iam_member" "builder" {
   project = var.project_id
-  role    = "roles/artifactregistry.admin"
+  role    = "roles/cloudbuild.builds.builder"
   member  = google_service_account.sa-build-cloud-run-book.member
 }
-resource "google_project_iam_member" "storage-user" {
-  project = var.project_id
-  role    = "roles/storage.objectUser"
-  member  = google_service_account.sa-build-cloud-run-book.member
-}
+# resource "google_project_iam_member" "storage-user" {
+#   project = var.project_id
+#   role    = "roles/storage.objectUser"
+#   member  = google_service_account.sa-build-cloud-run-book.member
+# }
 # resource "google_artifact_registry_repository_iam_member" "sa-cloud-run-book-member" {
 #   project    = google_artifact_registry_repository.my-cloud-run-book.project
 #   location   = google_artifact_registry_repository.my-cloud-run-book.location
@@ -30,9 +30,9 @@ resource "google_artifact_registry_repository" "my-cloud-run-book" {
   description   = "Build my own container image from cloud run book code for practice"
   format        = "DOCKER"
 
-  docker_config {
-    immutable_tags = true
-  }
+  # docker_config {
+  #   immutable_tags = true
+  # }
 }
 resource "google_storage_bucket" "tf-state" {
   name     = "${var.project_id}-tf-state"

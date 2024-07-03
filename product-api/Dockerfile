@@ -13,7 +13,7 @@ RUN go run products/cmd/import
 FROM base as build
 COPY cmd cmd
 COPY internal internal
-RUN go build products/cmd/server
+RUN CGO_ENABLED=1; go build products/cmd/server
 
 # Debian10 is Debian Buster (same as the build image)
 FROM gcr.io/distroless/base-debian12:nonroot AS run
